@@ -1,4 +1,8 @@
 
+using HotelManagement.API.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+
 namespace HotelManagement.API
 {
     public class Program
@@ -10,6 +14,10 @@ namespace HotelManagement.API
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            builder.Services.AddDbContext<AppDbContext>(option =>
+                option.UseSqlServer(builder.Configuration.GetConnectionString("Data")));
+            builder.Services.AddAutoMapper(typeof(Program));
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
